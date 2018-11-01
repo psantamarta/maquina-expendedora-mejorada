@@ -68,7 +68,7 @@ public class MaquinaExpendedoraMejorada {
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
         }
-        else {
+        else{
             System.out.println("Necesitas introducir " + (precioBillete - balanceClienteActual) + " euros mas!");
                     
         }            
@@ -85,4 +85,18 @@ public class MaquinaExpendedoraMejorada {
         balanceClienteActual = 0;
         return cantidadDeDineroADevolver;
     } 
+    
+    //vacia todo el dinero que hay en la maquina
+    public int vaciarDineroDeLaMaquina()
+    {
+        int cantidadDeDineroADevolver;
+        cantidadDeDineroADevolver = balanceClienteActual + totalDineroAcumulado;
+        balanceClienteActual = 0;
+        return cantidadDeDineroADevolver;
+    }
 }
+
+    
+    
+        
+        
