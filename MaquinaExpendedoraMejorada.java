@@ -86,14 +86,23 @@ public class MaquinaExpendedoraMejorada {
         return cantidadDeDineroADevolver;
     } 
     
-    //vacia todo el dinero que hay en la maquina
+    //vacia todo el dinero que hay en la maquina si no tiene operaciones pendientes
     public int vaciarDineroDeLaMaquina()
     {
-        int cantidadDeDineroADevolver;
-        cantidadDeDineroADevolver = balanceClienteActual + totalDineroAcumulado;
-        balanceClienteActual = 0;
-        return cantidadDeDineroADevolver;
+        int totalDeDineroADevolver = 0;
+        if(balanceClienteActual == 0) {
+            totalDeDineroADevolver = totalDineroAcumulado;
+            totalDineroAcumulado = 0;
+   
+        }
+        else {
+            System.out.println("Error: Operación pendiente");
+            totalDeDineroADevolver = -1;
+    
+        }
+        return totalDeDineroADevolver;
     }
+
 }
 
     
