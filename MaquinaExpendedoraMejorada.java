@@ -12,19 +12,22 @@ public class MaquinaExpendedoraMejorada {
     private String estacionDestino;
     // Regalo de otro billete cuando se saca uno
     private boolean billetePremio;
+    // Permite establecer un numero maximo de billetes que puede sacar la maquina
+    private int maximoBillete;
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean billeteRegalo) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean billeteRegalo, int billeteMaximoPermitido) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
         billetePremio = billeteRegalo;
+        maximoBillete = billeteMaximoPermitido;
     }     
     /**
      * Devuelve el precio del billete
@@ -44,26 +47,33 @@ public class MaquinaExpendedoraMejorada {
      * Simula la introduccion de dinero por parte del cliente actual
      */
     public void introducirDinero(int cantidadIntroducida) {
-        if(cantidadIntroducida > 0) {
+        if (maximoBillete >0) {
+            if(cantidadIntroducida > 0) {
             balanceClienteActual = balanceClienteActual + cantidadIntroducida;
         }
-        else {
+            else {
             System.out.println(cantidadIntroducida + " no es una cantidad de dinero valida.");
         }        
     }
+        else {
+            System.out.println("No permitido. No se pueden sacar mas Billetes");
+        }
+    }    
 
     /**
      * Imprime un billete para el cliente actual
      */
     public void imprimirBillete() {
-        if(balanceClienteActual >= precioBillete) {        
+        if (maximoBillete > 0) {
+            if(balanceClienteActual >= precioBillete) {        
             // Simula la impresion de un billete
-            System.out.println("##################");
-            System.out.println("# Billete de tren:");
-            System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
-            System.out.println("# " + precioBillete + " euros.");
-            System.out.println("##################");
-            System.out.println();
+                System.out.println("##################");
+                System.out.println("# Billete de tren:");
+                System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
+                System.out.println("# " + precioBillete + " euros.");
+                System.out.println("##################");
+                System.out.println();
+                maximoBillete --;
             
             //Billete adicional que se imprime al sacar un billete
             if(billetePremio == true){
@@ -75,16 +85,22 @@ public class MaquinaExpendedoraMejorada {
                   System.out.println();
             }
     
-            // Actualiza el total de dinero acumulado en la maquina
-            totalDineroAcumulado = totalDineroAcumulado + precioBillete;
-            // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
-            balanceClienteActual = balanceClienteActual - precioBillete;
         }
         else{
             System.out.println("Necesitas introducir " + (precioBillete - balanceClienteActual) + " euros mas!");
                     
-        }            
+        }   
+            // Actualiza el total de dinero acumulado en la maquina
+            totalDineroAcumulado = totalDineroAcumulado + precioBillete;
+            // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
+            balanceClienteActual = balanceClienteActual - precioBillete;
+    
     }
+    else {
+        System.out.println("No permitido. No se pueden sacar mas Billetes");
+    }
+}
+        
     
     /**
      * Cancela la operacion de compra del cliente actual y le
@@ -116,6 +132,7 @@ public class MaquinaExpendedoraMejorada {
     }
 
 }
+
 
     
     
