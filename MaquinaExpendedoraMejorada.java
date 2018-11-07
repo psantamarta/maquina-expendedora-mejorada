@@ -10,20 +10,22 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
+    // Regalo de otro billete cuando se saca uno
+    private boolean billetePremio;
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean billeteRegalo) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
-    }
-
+        billetePremio = billeteRegalo;
+    }     
     /**
      * Devuelve el precio del billete
      */
@@ -61,7 +63,17 @@ public class MaquinaExpendedoraMejorada {
             System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
             System.out.println("# " + precioBillete + " euros.");
             System.out.println("##################");
-            System.out.println();         
+            System.out.println();
+            
+            //Billete adicional que se imprime al sacar un billete
+            if(billetePremio == true){
+                  System.out.println("##################");
+                  System.out.println("# Billete de tren:");
+                  System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
+                  System.out.println("# " + precioBillete + " euros.");
+                  System.out.println("##################");
+                  System.out.println();
+            }
     
             // Actualiza el total de dinero acumulado en la maquina
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
